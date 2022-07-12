@@ -57,6 +57,7 @@
 #     How many hands does Player 1 win?
 
 from collections import defaultdict
+from typing import List, Tuple
 
 # Possible suits for an individual card (clover, diamond, heart, spade)
 CARD_SUITS = {'C', 'D', 'H', 'S'}
@@ -79,7 +80,7 @@ CARD_RANK_TO_INT = {
 }
 
 
-def card_to_tuple(c):
+def card_to_tuple(c: str) -> Tuple[str, int]:
     """
     Converts the string representation of a card to a tuple.
 
@@ -108,7 +109,7 @@ def card_to_tuple(c):
     return suit, rank
 
 
-def hand_freqs(hand):
+def hand_freqs(hand: List[Tuple[str, int]]) -> List[int]:
     """
     Returns a list of the ordered frequencies of the card ranks in `hand`.
 
@@ -126,7 +127,7 @@ def hand_freqs(hand):
     return freqs
 
 
-def is_four_of_a_kind(hand):
+def is_four_of_a_kind(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a four-of-a-kind in poker.
     Assumes hand is represented properly as list of tuples.
@@ -140,7 +141,7 @@ def is_four_of_a_kind(hand):
     return hand_freqs(hand) == [1, 4]
 
 
-def is_full_house(hand):
+def is_full_house(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a full house in poker.
     Assumes hand is represented properly as list of tuples.
@@ -154,7 +155,7 @@ def is_full_house(hand):
     return hand_freqs(hand) == [2, 3]
 
 
-def is_three_of_a_kind(hand):
+def is_three_of_a_kind(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a three-of-a-kind in poker.
     Assumes hand is represented properly as list of tuples.
@@ -168,7 +169,7 @@ def is_three_of_a_kind(hand):
     return hand_freqs(hand) == [1, 1, 3]
 
 
-def is_two_pair(hand):
+def is_two_pair(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a two-pair in poker.
     Assumes hand is represented properly as list of tuples.
@@ -182,7 +183,7 @@ def is_two_pair(hand):
     return hand_freqs(hand) == [1, 2, 2]
 
 
-def is_one_pair(hand):
+def is_one_pair(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a one-pair in poker.
     Assumes hand is represented properly as list of tuples.
@@ -196,7 +197,7 @@ def is_one_pair(hand):
     return hand_freqs(hand) == [1, 1, 1, 2]
 
 
-def is_straight(hand):
+def is_straight(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a straight in poker.
     Assumes hand is represented properly as list of tuples.
@@ -213,7 +214,7 @@ def is_straight(hand):
     return (rank_hi - rank_lo) == 4 and len(ranks) == 5
 
 
-def is_flush(hand):
+def is_flush(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a flush in poker.
     Assumes hand is represented properly as list of tuples.
@@ -228,7 +229,7 @@ def is_flush(hand):
     return len(suits) == 1
 
 
-def is_straight_flush(hand):
+def is_straight_flush(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a straight flush in poker.
     Assumes hand is represented properly as list of tuples.
@@ -242,7 +243,7 @@ def is_straight_flush(hand):
     return is_straight(hand) and is_flush(hand)
 
 
-def is_royal_flush(hand):
+def is_royal_flush(hand: List[Tuple[str, int]]) -> bool:
     """
     Returns True iff given `hand` is a royal flush in poker.
     Assumes hand is represented properly as list of tuples.
@@ -256,7 +257,7 @@ def is_royal_flush(hand):
     return is_straight_flush(hand) and max(map(lambda c: c[1], hand)) == CARD_RANK_TO_INT['A']
 
 
-def poker_hand_rank(hand):
+def poker_hand_rank(hand: List[Tuple[str, int]]) -> List[int]:
     """
     Returns the 'rank' of the given poker hand as an int list
       with which two different hands can be compared lexicographically.
@@ -407,7 +408,7 @@ def poker_hand_rank(hand):
     return [major_rank] + ranks
 
 
-def main(filename):
+def main(filename: str) -> int:
     """
     Returns the number of poker hands won by Player 1 in the given `filename`.
 
